@@ -1,0 +1,318 @@
+{
+  "apple": [
+    0.5,
+    0.75
+  ],
+  "bush_mature": [
+    0.5,
+    0.75
+  ],
+  "bush_sprout": [
+    0.5,
+    0.75
+  ],
+  "cactus_mature": [
+    0.5,
+    0.75
+  ],
+  "cactus_mature_neutral": [
+    0.5,
+    0.75
+  ],
+  "cactus_sprout": [
+    0.5,
+    0.75
+  ],
+  "cactus_sprout_neutral": [
+    0.5,
+    0.75
+  ],
+  "carrot_mature": [
+    0.5,
+    0.75
+  ],
+  "carrot_sprout": [
+    0.5,
+    0.75
+  ],
+  "dead_pumpkin": [
+    0.5,
+    0.75
+  ],
+  "dino_head": [
+    0.5,
+    0.7813
+  ],
+  "dino_head_back": [
+    0.5,
+    0.7813
+  ],
+  "dino_segment": [
+    0.5,
+    0.75
+  ],
+  "dino_tail": [
+    0.5,
+    0.75
+  ],
+  "dino_tail_front": [
+    0.5,
+    0.75
+  ],
+  "drone_arm": [
+    0.5,
+    0.1458
+  ],
+  "drone_body": [
+    0.5,
+    0.5
+  ],
+  "drone_rotor_a": [
+    0.4643,
+    0.55
+  ],
+  "drone_rotor_b": [
+    0.4643,
+    0.55
+  ],
+  "fx_bubble": [
+    0.5,
+    0.5
+  ],
+  "fx_dust": [
+    0.5,
+    0.5
+  ],
+  "fx_glow": [
+    0.5,
+    0.5
+  ],
+  "fx_leaf": [
+    0.5,
+    0.5
+  ],
+  "fx_shadow": [
+    0.5,
+    0.5
+  ],
+  "fx_spark": [
+    0.5,
+    0.5
+  ],
+  "fx_splinter": [
+    0.5,
+    0.5
+  ],
+  "grass_mature": [
+    0.5,
+    0.75
+  ],
+  "grass_sprout": [
+    0.5,
+    0.75
+  ],
+  "hat_Beanie": [
+    0.5,
+    0.7292
+  ],
+  "hat_Bucket_Hat": [
+    0.5,
+    0.7292
+  ],
+  "hat_Cactus_Pot": [
+    0.5,
+    0.7292
+  ],
+  "hat_Carrot_Top": [
+    0.5,
+    0.7292
+  ],
+  "hat_Chef_Hat": [
+    0.5,
+    0.7292
+  ],
+  "hat_Dinosaur_Hat": [
+    0.5,
+    0.7292
+  ],
+  "hat_Farmer_Cap": [
+    0.5,
+    0.7292
+  ],
+  "hat_Flower_Crown": [
+    0.5,
+    0.7292
+  ],
+  "hat_Gold_Crown": [
+    0.5,
+    0.7292
+  ],
+  "hat_Hard_Hat": [
+    0.5,
+    0.7292
+  ],
+  "hat_Hay_Bale": [
+    0.5,
+    0.7292
+  ],
+  "hat_Party_Hat": [
+    0.5,
+    0.7292
+  ],
+  "hat_Propeller_Beanie": [
+    0.5,
+    0.7292
+  ],
+  "hat_Pumpkin_Helmet": [
+    0.5,
+    0.7292
+  ],
+  "hat_Sprout_Pot": [
+    0.5,
+    0.7292
+  ],
+  "hat_Top_Hat": [
+    0.5,
+    0.7292
+  ],
+  "hat_Viking_Helmet": [
+    0.5,
+    0.7292
+  ],
+  "hat_Wizard_Hat": [
+    0.5,
+    0.7292
+  ],
+  "hedge_e": [
+    0.5,
+    0.6364
+  ],
+  "hedge_n": [
+    0.5,
+    0.6364
+  ],
+  "hedge_s": [
+    0.5,
+    0.6364
+  ],
+  "hedge_w": [
+    0.5,
+    0.6364
+  ],
+  "item_bone": [
+    0.5,
+    0.5
+  ],
+  "item_cactus": [
+    0.5,
+    0.5
+  ],
+  "item_carrot": [
+    0.5,
+    0.5
+  ],
+  "item_fertilizer": [
+    0.5,
+    0.5
+  ],
+  "item_gold": [
+    0.5,
+    0.5
+  ],
+  "item_hay": [
+    0.5,
+    0.5
+  ],
+  "item_power": [
+    0.5,
+    0.5
+  ],
+  "item_pumpkin": [
+    0.5,
+    0.5
+  ],
+  "item_water": [
+    0.5,
+    0.5
+  ],
+  "item_weird_substance": [
+    0.5,
+    0.5
+  ],
+  "item_wood": [
+    0.5,
+    0.5
+  ],
+  "pet_dog": [
+    0.5,
+    0.5
+  ],
+  "platform_corner": [
+    0.5,
+    0.25
+  ],
+  "platform_edge_s": [
+    0.5,
+    0.25
+  ],
+  "platform_edge_w": [
+    0.5,
+    0.25
+  ],
+  "pumpkin_mature": [
+    0.5,
+    0.75
+  ],
+  "pumpkin_mega": [
+    0.5,
+    0.75
+  ],
+  "pumpkin_sprout": [
+    0.5,
+    0.75
+  ],
+  "sunflower_mature": [
+    0.5,
+    0.75
+  ],
+  "sunflower_sprout": [
+    0.5,
+    0.75
+  ],
+  "tile_base": [
+    0.5,
+    0.75
+  ],
+  "tile_grassland": [
+    0.5,
+    0.75
+  ],
+  "tile_soil": [
+    0.5,
+    0.75
+  ],
+  "tile_water_overlay": [
+    0.5,
+    0.75
+  ],
+  "treasure_closed": [
+    0.5,
+    0.75
+  ],
+  "treasure_open": [
+    0.5,
+    0.75
+  ],
+  "tree_mature": [
+    0.5,
+    0.75
+  ],
+  "tree_mid": [
+    0.5,
+    0.75
+  ],
+  "tree_sprout": [
+    0.5,
+    0.75
+  ]
+}

@@ -1,0 +1,749 @@
+{
+  "nodes": [
+    {
+      "id": "Grass",
+      "name": "Pasto",
+      "icon": "grass",
+      "pos": [
+        0,
+        0
+      ],
+      "requires": [],
+      "startLevel": 1,
+      "description": "El pasto crece solo sobre Grassland y da heno al cosecharlo. Rebrota sin replantar.",
+      "grants": {
+        "entities": [
+          "Grass"
+        ],
+        "functions": [],
+        "items": []
+      },
+      "levels": [
+        {
+          "cost": {},
+          "effect": "Disponible desde el inicio."
+        }
+      ]
+    },
+    {
+      "id": "Speed",
+      "name": "Velocidad",
+      "icon": "speed",
+      "pos": [
+        -2,
+        1
+      ],
+      "requires": [
+        "Grass"
+      ],
+      "description": "El dron ejecuta más ticks por segundo real.",
+      "grants": {
+        "entities": [],
+        "functions": [],
+        "items": []
+      },
+      "levels": [
+        {
+          "cost": {
+            "Hay": 20
+          },
+          "value": 1.5,
+          "effect": "Velocidad ×1.5"
+        },
+        {
+          "cost": {
+            "Hay": 120
+          },
+          "value": 2,
+          "effect": "Velocidad ×2"
+        },
+        {
+          "cost": {
+            "Hay": 500,
+            "Wood": 50
+          },
+          "value": 3,
+          "effect": "Velocidad ×3"
+        },
+        {
+          "cost": {
+            "Hay": 2000,
+            "Wood": 400
+          },
+          "value": 4,
+          "effect": "Velocidad ×4"
+        },
+        {
+          "cost": {
+            "Wood": 2000,
+            "Carrot": 500
+          },
+          "value": 6,
+          "effect": "Velocidad ×6"
+        }
+      ]
+    },
+    {
+      "id": "Expand",
+      "name": "Expansión",
+      "icon": "expand",
+      "pos": [
+        2,
+        1
+      ],
+      "requires": [
+        "Grass"
+      ],
+      "description": "Agranda la granja: 1×1 → 1×3 → 3×3 → 4×4 → 6×6 → 8×8 → 12×12 → 16×16 → 22×22 → 32×32.",
+      "baseSize": [
+        1,
+        1
+      ],
+      "grants": {
+        "entities": [],
+        "functions": [],
+        "items": []
+      },
+      "levels": [
+        {
+          "cost": {
+            "Hay": 30
+          },
+          "size": [
+            1,
+            3
+          ],
+          "effect": "Granja de 1×3"
+        },
+        {
+          "cost": {
+            "Hay": 150
+          },
+          "size": [
+            3,
+            3
+          ],
+          "effect": "Granja de 3×3"
+        },
+        {
+          "cost": {
+            "Hay": 500,
+            "Wood": 60
+          },
+          "size": [
+            4,
+            4
+          ],
+          "effect": "Granja de 4×4"
+        },
+        {
+          "cost": {
+            "Wood": 400,
+            "Carrot": 80
+          },
+          "size": [
+            6,
+            6
+          ],
+          "effect": "Granja de 6×6"
+        },
+        {
+          "cost": {
+            "Wood": 1500,
+            "Carrot": 400
+          },
+          "size": [
+            8,
+            8
+          ],
+          "effect": "Granja de 8×8"
+        },
+        {
+          "cost": {
+            "Wood": 6000,
+            "Carrot": 2000
+          },
+          "size": [
+            12,
+            12
+          ],
+          "effect": "Granja de 12×12"
+        },
+        {
+          "cost": {
+            "Wood": 20000,
+            "Carrot": 8000
+          },
+          "size": [
+            16,
+            16
+          ],
+          "effect": "Granja de 16×16"
+        },
+        {
+          "cost": {
+            "Wood": 80000,
+            "Carrot": 30000
+          },
+          "size": [
+            22,
+            22
+          ],
+          "effect": "Granja de 22×22"
+        },
+        {
+          "cost": {
+            "Wood": 300000,
+            "Carrot": 120000
+          },
+          "size": [
+            32,
+            32
+          ],
+          "effect": "Granja de 32×32"
+        }
+      ]
+    },
+    {
+      "id": "Plant",
+      "name": "Siembra",
+      "icon": "plant",
+      "pos": [
+        0,
+        1
+      ],
+      "requires": [
+        "Grass"
+      ],
+      "description": "Habilita plant() y los arbustos (Bush), que dan madera.",
+      "grants": {
+        "entities": [
+          "Bush"
+        ],
+        "functions": [
+          "plant"
+        ],
+        "items": []
+      },
+      "levels": [
+        {
+          "cost": {
+            "Hay": 50
+          },
+          "effect": "plant(Entities.Bush)"
+        }
+      ]
+    },
+    {
+      "id": "Trees",
+      "name": "Árboles",
+      "icon": "tree",
+      "pos": [
+        -1,
+        2
+      ],
+      "requires": [
+        "Plant"
+      ],
+      "description": "Habilita los árboles (Tree): dan más madera, pero crecen más despacio con otros árboles al lado.",
+      "grants": {
+        "entities": [
+          "Tree"
+        ],
+        "functions": [],
+        "items": []
+      },
+      "levels": [
+        {
+          "cost": {
+            "Hay": 100,
+            "Wood": 50
+          },
+          "effect": "plant(Entities.Tree)"
+        }
+      ]
+    },
+    {
+      "id": "Carrots",
+      "name": "Zanahorias",
+      "icon": "carrot",
+      "pos": [
+        0,
+        2
+      ],
+      "requires": [
+        "Plant"
+      ],
+      "description": "Habilita las zanahorias (Carrot): solo crecen en Soil y cuestan heno y madera al plantarlas.",
+      "grants": {
+        "entities": [
+          "Carrot"
+        ],
+        "functions": [],
+        "items": []
+      },
+      "levels": [
+        {
+          "cost": {
+            "Wood": 80
+          },
+          "effect": "plant(Entities.Carrot)"
+        }
+      ]
+    },
+    {
+      "id": "Watering",
+      "name": "Riego",
+      "icon": "water",
+      "pos": [
+        1,
+        2
+      ],
+      "requires": [
+        "Plant"
+      ],
+      "description": "Habilita use_item(Items.Water). Cada nivel añade un depósito que se rellena mientras corre un script.",
+      "grants": {
+        "entities": [],
+        "functions": [],
+        "items": [
+          "Water"
+        ]
+      },
+      "levels": [
+        {
+          "cost": {
+            "Wood": 60
+          },
+          "value": 1,
+          "effect": "1 depósito de agua"
+        },
+        {
+          "cost": {
+            "Wood": 250
+          },
+          "value": 2,
+          "effect": "2 depósitos de agua"
+        },
+        {
+          "cost": {
+            "Wood": 1000,
+            "Carrot": 100
+          },
+          "value": 3,
+          "effect": "3 depósitos de agua"
+        },
+        {
+          "cost": {
+            "Wood": 4000,
+            "Carrot": 600
+          },
+          "value": 4,
+          "effect": "4 depósitos de agua"
+        }
+      ]
+    },
+    {
+      "id": "Fertilizer",
+      "name": "Fertilizante",
+      "icon": "fertilizer",
+      "pos": [
+        1,
+        3
+      ],
+      "requires": [
+        "Watering",
+        "Carrots"
+      ],
+      "description": "Habilita use_item(Items.Fertilizer): quita 2 s al crecimiento, pero infecta la planta y la mitad de su cosecha se vuelve Weird_Substance.",
+      "grants": {
+        "entities": [],
+        "functions": [],
+        "items": [
+          "Fertilizer"
+        ]
+      },
+      "levels": [
+        {
+          "cost": {
+            "Wood": 100,
+            "Carrot": 30
+          },
+          "value": 1,
+          "effect": "Producción de fertilizante"
+        },
+        {
+          "cost": {
+            "Wood": 600,
+            "Carrot": 200
+          },
+          "value": 2,
+          "effect": "Producción ×2"
+        },
+        {
+          "cost": {
+            "Wood": 3000,
+            "Carrot": 1000
+          },
+          "value": 3,
+          "effect": "Producción ×3"
+        }
+      ]
+    },
+    {
+      "id": "Sunflowers",
+      "name": "Girasoles",
+      "icon": "sunflower",
+      "pos": [
+        -1,
+        3
+      ],
+      "requires": [
+        "Carrots"
+      ],
+      "description": "Habilita los girasoles (Sunflower): dan Power, que el dron gasta solo para trabajar al doble de velocidad. Con 10 o más en la granja, cosechar el de más pétalos multiplica la energía.",
+      "grants": {
+        "entities": [
+          "Sunflower"
+        ],
+        "functions": [],
+        "items": []
+      },
+      "levels": [
+        {
+          "cost": {
+            "Carrot": 300
+          },
+          "effect": "plant(Entities.Sunflower)"
+        }
+      ]
+    },
+    {
+      "id": "Pumpkins",
+      "name": "Calabazas",
+      "icon": "pumpkin",
+      "pos": [
+        0,
+        3
+      ],
+      "requires": [
+        "Carrots"
+      ],
+      "description": "Habilita las calabazas (Pumpkin): el 20 % muere al madurar y las maduras que forman un cuadrado N×N se fusionan en una megacalabaza.",
+      "grants": {
+        "entities": [
+          "Pumpkin"
+        ],
+        "functions": [],
+        "items": []
+      },
+      "levels": [
+        {
+          "cost": {
+            "Wood": 500,
+            "Carrot": 200
+          },
+          "effect": "plant(Entities.Pumpkin)"
+        }
+      ]
+    },
+    {
+      "id": "Cactus",
+      "name": "Cactus",
+      "icon": "cactus",
+      "pos": [
+        -1,
+        4
+      ],
+      "requires": [
+        "Pumpkins"
+      ],
+      "description": "Habilita los cactus y swap(): ordénalos por tamaño hacia el norte y el este y la cosecha se propaga en cadena.",
+      "grants": {
+        "entities": [
+          "Cactus"
+        ],
+        "functions": [
+          "swap"
+        ],
+        "items": []
+      },
+      "levels": [
+        {
+          "cost": {
+            "Pumpkin": 300,
+            "Wood": 1000
+          },
+          "effect": "plant(Entities.Cactus) y swap()"
+        }
+      ]
+    },
+    {
+      "id": "Dinosaurs",
+      "name": "Dinosaurios",
+      "icon": "dino",
+      "pos": [
+        0,
+        4
+      ],
+      "requires": [
+        "Pumpkins"
+      ],
+      "description": "Habilita Hats.Dinosaur_Hat: el dron persigue manzanas y le crece la cola; al terminar, la cola se cosecha y da huesos según su largo al cuadrado.",
+      "grants": {
+        "entities": [],
+        "functions": [],
+        "items": [],
+        "hats": [
+          "Dinosaur_Hat"
+        ]
+      },
+      "levels": [
+        {
+          "cost": {
+            "Pumpkin": 400,
+            "Carrot": 600
+          },
+          "effect": "change_hat(Hats.Dinosaur_Hat)"
+        }
+      ]
+    },
+    {
+      "id": "Mazes",
+      "name": "Laberintos",
+      "icon": "maze",
+      "pos": [
+        1,
+        4
+      ],
+      "requires": [
+        "Pumpkins",
+        "Fertilizer"
+      ],
+      "description": "Habilita use_item(Items.Weird_Substance) sobre un arbusto: crea un laberinto con un tesoro que da oro según el lado de la granja.",
+      "grants": {
+        "entities": [],
+        "functions": [],
+        "items": [
+          "Weird_Substance"
+        ]
+      },
+      "levels": [
+        {
+          "cost": {
+            "Pumpkin": 400,
+            "Weird_Substance": 20
+          },
+          "value": 1,
+          "effect": "Laberintos (oro ×1)"
+        },
+        {
+          "cost": {
+            "Pumpkin": 2000,
+            "Gold": 200
+          },
+          "value": 2,
+          "effect": "Oro ×2"
+        },
+        {
+          "cost": {
+            "Pumpkin": 8000,
+            "Gold": 1500
+          },
+          "value": 3,
+          "effect": "Oro ×3"
+        }
+      ]
+    },
+    {
+      "id": "Polyculture",
+      "name": "Policultivo",
+      "icon": "polyculture",
+      "pos": [
+        1,
+        5
+      ],
+      "requires": [
+        "Mazes"
+      ],
+      "description": "Habilita get_companion(): cada planta pide un compañero en una casilla cercana; si está ahí al cosechar, rinde de 5× a 15× según el nivel.",
+      "grants": {
+        "entities": [],
+        "functions": [
+          "get_companion"
+        ],
+        "items": []
+      },
+      "levels": [
+        {
+          "cost": {
+            "Gold": 100,
+            "Pumpkin": 500
+          },
+          "effect": "Compañeros ×5"
+        },
+        {
+          "cost": {
+            "Gold": 400,
+            "Pumpkin": 2000
+          },
+          "effect": "Compañeros ×7.5"
+        },
+        {
+          "cost": {
+            "Gold": 1500,
+            "Pumpkin": 6000
+          },
+          "effect": "Compañeros ×10"
+        },
+        {
+          "cost": {
+            "Gold": 5000,
+            "Pumpkin": 20000
+          },
+          "effect": "Compañeros ×12.5"
+        },
+        {
+          "cost": {
+            "Gold": 15000,
+            "Pumpkin": 60000
+          },
+          "effect": "Compañeros ×15"
+        }
+      ]
+    },
+    {
+      "id": "Megafarm",
+      "name": "Megagranja",
+      "icon": "megafarm",
+      "pos": [
+        2,
+        3
+      ],
+      "requires": [
+        "Expand",
+        "Carrots"
+      ],
+      "description": "Habilita spawn_drone(), wait_for() y has_finished(): cada nivel permite más drones trabajando a la vez, cada uno con su propia memoria.",
+      "grants": {
+        "entities": [],
+        "functions": [
+          "spawn_drone",
+          "wait_for",
+          "has_finished"
+        ],
+        "items": []
+      },
+      "levels": [
+        {
+          "cost": {
+            "Pumpkin": 1000,
+            "Carrot": 2000
+          },
+          "value": 2,
+          "effect": "Hasta 2 drones"
+        },
+        {
+          "cost": {
+            "Pumpkin": 5000,
+            "Gold": 500
+          },
+          "value": 4,
+          "effect": "Hasta 4 drones"
+        },
+        {
+          "cost": {
+            "Pumpkin": 20000,
+            "Gold": 2000,
+            "Cactus": 2000
+          },
+          "value": 8,
+          "effect": "Hasta 8 drones"
+        },
+        {
+          "cost": {
+            "Pumpkin": 80000,
+            "Gold": 10000,
+            "Cactus": 10000
+          },
+          "value": 16,
+          "effect": "Hasta 16 drones"
+        },
+        {
+          "cost": {
+            "Pumpkin": 300000,
+            "Gold": 40000,
+            "Cactus": 40000
+          },
+          "value": 32,
+          "effect": "Hasta 32 drones"
+        }
+      ]
+    },
+    {
+      "id": "Leaderboard",
+      "name": "Marcadores",
+      "icon": "leaderboard",
+      "pos": [
+        -2,
+        2
+      ],
+      "requires": [
+        "Speed"
+      ],
+      "description": "Habilita leaderboard_run() y los intentos cronometrados de los 16 marcadores locales.",
+      "grants": {
+        "entities": [],
+        "functions": [
+          "leaderboard_run"
+        ],
+        "items": []
+      },
+      "levels": [
+        {
+          "cost": {
+            "Hay": 800,
+            "Wood": 200
+          },
+          "effect": "Intentos cronometrados"
+        }
+      ]
+    },
+    {
+      "id": "Top_Hat",
+      "name": "Sombrero de copa",
+      "icon": "tophat",
+      "pos": [
+        0,
+        6
+      ],
+      "requires": [
+        "Polyculture",
+        "Megafarm",
+        "Cactus",
+        "Dinosaurs"
+      ],
+      "description": "La meta final: un cilindro de bronce remachado para «El Chatarrero».",
+      "grants": {
+        "entities": [],
+        "functions": [],
+        "items": [],
+        "hats": [
+          "Top_Hat"
+        ]
+      },
+      "levels": [
+        {
+          "cost": {
+            "Hay": 1000000000.0,
+            "Wood": 10000000000.0,
+            "Carrot": 1000000000.0,
+            "Cactus": 1000000000.0,
+            "Gold": 100000000.0
+          },
+          "effect": "change_hat(Hats.Top_Hat)"
+        }
+      ]
+    }
+  ]
+}

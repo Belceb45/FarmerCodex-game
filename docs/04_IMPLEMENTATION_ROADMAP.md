@@ -1,0 +1,133 @@
+# 04. Hoja de Ruta de Implementación (Roadmap en 4 Fases)
+
+Ejecutar las fases en orden estricto. No avanzar a la siguiente fase hasta que todos los **Criterios de Aceptación** y pruebas unitarias en Vitest pasen en verde.
+
+---
+
+## Fase 1: Núcleo Determinista, Intérprete AST y Web Worker
+**Objetivo:** Un dron controlado por código Python-like cosechando `Grass` en una cuadrícula `1x1` a `4x4` sin bloquear el hilo principal.
+
+### Tareas Técnicas
+1. Inicializar proyecto Vite + React + TypeScript (`strict: true`) + Tailwind + Zustand + Vitest.
+2. Implementar `src/engine/prng.ts` (`DeterministicRandom`), `src/engine/grid.ts` (`Grounds`, `Grass`), `src/engine/inventory.ts` y `src/engine/world.ts`.
+3. Implementar `src/vm/lexer.ts` (manejo de `INDENT`/`DEDENT`), `src/vm/parser.ts` (AST para variables, operadores, `if/elif/else`, `while`, `for in range`, `def`, `return`), `src/vm/droneVm.ts` y `src/vm/builtins.ts` (API base: `move`, `harvest`, `till`, `can_harvest`, `get_pos_x/y`, `get_world_size`, `print`).
+4. Crear `src/worker/protocol.ts` y `src/worker/simulation.worker.ts` con regla **No-Idle** y emisión de `STATE_SNAPSHOT`.
+5. Montar UI base: CodeMirror 6 (panel izquierdo), PixiJS `FarmStage.ts` con interpolación (panel derecho), botones `Run / Stop / Step` y consola circular (máx. 1000 líneas).
+
+### Criterios de Aceptación (DoD Fase 1)
+- [x] Un script `while True: if can_harvest(): harvest(); move(North)` cosecha `Items.Hay` continuamente a 60 FPS en el navegador.
+- [x] Un bucle infinito sin acciones físicas (`while True: x = 1`) NO congela la UI y se detiene instantáneamente al pulsar `Stop`.
+- [x] Al detener el script, `simTime` se pausa y el pasto deja de crecer.
+- [x] Suite Vitest valida Lexer, Parser, VM y determinismo del PRNG con la misma semilla.
+
+> **Fase 1 completada (2026-11-22).** Notas para las fases siguientes:
+> - El ejemplo de una línea no es Python válido (`if` no puede ir tras `while ...:` en la misma línea); se usa la forma con sangría.
+> - Costos en `balance.json`: asignaciones/literales 0 ticks; aritmética, comparaciones, lógica, subíndices y llamadas 1; cada vuelta de bucle 1; acciones físicas 200 (1 si fallan). El efecto físico se aplica al terminar la espera.
+> - La VM compila el AST a bytecode por marcos (`src/vm/compiler.ts`) para poder pausar dentro de expresiones; «Paso» avanza una sentencia del dron principal y entra en las funciones.
+> - Protocolo ampliado respecto a `01_ARCHITECTURE`: `CONSOLE_BATCH`, `SET_WORLD_SIZE` (selector temporal 1×1–4×4 hasta que exista `Expand`), `RUN_SCRIPT.startPaused` e `INIT_GAME.worldSize`.
+> - La UI sigue el doc 07 en lugar de los paneles fijos izquierda/derecha de la tarea 5: la granja ocupa todo el fondo y el código vive en ventanas flotantes `.py` (crear, mover, redimensionar, minimizar, cerrar, renombrar); la consola y la documentación también son ventanas. Colores según los docs 05 y 07.
+> - Escena 2.5D low-poly con un proyector 3D propio (`src/renderer/iso3d.ts`): cámara a 50° (el doc 05 dice 65°–75°; se bajó para dar volumen a los objetos), sombreado plano con luz desde arriba a la izquierda y sombras proyectadas al 0.28.
+> - Variaciones pedidas sobre el doc 06: dron en X de color marfil y verde azulado con gorra roja (no marrón con sombrero de paja); 17 sombreros propios en `Hats` en lugar de la lista de 26 del doc 02; perro alcancía volador en lugar de la alcancía de cerdito (`pet_the_dog()` en lugar de `pet_the_piggy()`); isla con arcilla rojiza y rocas de pizarra.
+> - La consola no se muestra por defecto (se abre desde Ajustes); los errores aparecen al pie de la ventana del script.
+
+---
+
+## Fase 2: Economía Base, Factores Ambientales y Persistencia
+**Objetivo:** Ciclo agrícola completo con consumo automático de recursos, agua, fertilizante, árbol tecnológico inicial y guardado en IndexedDB.
+
+### Tareas Técnicas
+1. Añadir entidades `Bush`, `Tree` (penalización por árboles adyacentes) y `Carrot` (exige `Soil`, descuenta `Hay` + `Wood`).
+2. Implementar `use_item(Items.Water)` con evaporación determinista (`10%` cada `0.1s` de `simTime`) y logro `Mud Farm`.
+3. Implementar `use_item(Items.Fertilizer)` (`-2.0s` de crecimiento + `isInfected = true` -> `50%` `Weird_Substance`).
+4. Crear `src/config/techTree.json` y modal/panel interactivo del Árbol Tecnológico (`Speed`, `Expand`, `Plant`, `Carrots`, `Watering`, `Trees`).
+5. Implementar `src/persistence/db.ts` (IndexedDB) para múltiples archivos `.py` (con soporte de `import` entre archivos del jugador) y auto-guardado de partida.
+
+### Criterios de Aceptación (DoD Fase 2)
+- [x] Plantar `Carrot` sobre `Grassland` falla silenciosamente sin error ni consumo de inventario.
+- [x] `till()` destruye cultivos existentes y alterna el suelo.
+- [x] Recargar la página restaura exactamente los scripts `.py`, el inventario, la cuadrícula y los desbloqueos.
+- [x] Pruebas unitarias verifican evaporación determinista e infección por fertilizante.
+
+> **Fase 2 completada (2026-11-23).** Decisiones para las fases siguientes:
+> - `Speed`, `Watering` y `Trees` vienen de esta hoja de ruta aunque no están en la lista de `Unlocks` del doc 02; se añadieron al enum. Se añadió también el nodo `Fertilizer` (sí está en el doc 02) porque hace falta una fuente de fertilizante.
+> - El agua y el fertilizante se obtienen solos: cada nivel de `Watering` añade un depósito que se rellena mientras corre un script, y cada nivel de `Fertilizer` aumenta su producción (`balance.json`: `tankCapacityPerLevel`, `refillPerSecPerLevel`, `capacityPerLevel`). El agua acelera el crecimiento (`1 + humedad · growthBonusAtFull`).
+> - `plant()` trata el pasto como casilla libre (lo reemplaza), descuenta el costo y deja el brote al instante (doc 06); luego el dron espera 200 ticks. `use_item()` aplica su efecto al terminar la espera. `use_item(Items.Weird_Substance)` devuelve `False` hasta los laberintos de la Fase 3.
+> - `Expand` sigue la secuencia del doc 03 desde 1×1, incluido el paso 1×3: la cuadrícula admite ancho × alto y `get_world_size()` devuelve el lado mayor. Desapareció el selector temporal de tamaño; el de velocidad ahora es un tope (≤ 1×) y la velocidad máxima la da `Speed`.
+> - Usar una entidad o un ítem sin su tecnología detiene el script con `UnlockError` indicando el nodo que falta. El bloqueo de sintaxis por `Unlocks` (`Loops`, `Functions`…) queda para cuando el árbol tenga esos nodos.
+> - Persistencia en `farmercodex_db` (`files`, `saves`, `leaderboards`) con `idb`: los archivos se guardan al editarlos y la partida se autoguarda cada 5 s mientras corre un script, al detenerlo y al desbloquear. La disposición de las ventanas va en `localStorage`. Ajustes incluye «Reiniciar partida».
+> - Costos y rendimientos (Bush da 1 madera y Tree 5; Carrot cuesta 1 heno y 1 madera; cada árbol vecino suma un 100 % al tiempo de crecimiento de un árbol…) están en `balance.json` y `techTree.json` para ajustarlos sin tocar código.
+
+---
+
+## Fase 3: Subsistemas Avanzados y Puzles Algorítmicos
+**Objetivo:** Implementar las 6 mecánicas complejas configuradas desde `src/config/balance.json`.
+
+### Tareas Técnicas
+1. `src/engine/subsystems/pumpkin.ts`: muerte aleatoria (`20%` `Dead_Pumpkin`) y detección de cuadrados completos $N \times N$ para megacalabazas.
+2. `src/engine/subsystems/sunflower.ts`: pétalos `7..15`, `measure()`, bonificación con $\ge 10$ girasoles y consumo automático de `Items.Power` ($2\times$ velocidad).
+3. `src/engine/subsystems/cactus.ts`: tamaños `0..9`, `swap(dir)`, verificación de ordenamiento 2D y cosecha recursiva en cadena BFS/DFS.
+4. `src/engine/subsystems/maze.ts`: generación de laberintos desde `Bush` + `Weird_Substance`, colisión con `Hedge`, reciclaje de `Treasure` hasta 300x y reubicación de `200` ticks antes de `measure()`.
+5. `src/engine/subsystems/polyculture.ts`: asignación y validación de `get_companion()` con multiplicador $5\times$ a $15\times$.
+6. `src/engine/subsystems/dino.ts`: `Hats.Dinosaur_Hat`, aparición de `Apple`, cola `Dinosaur` (`0.2s`), colisión y cosecha de `Items.Bone`.
+
+### Criterios de Aceptación (DoD Fase 3)
+- [x] Cada subsistema tiene pruebas unitarias dedicadas en `tests/subsystems/` verificando sus fórmulas matemáticas exactas y costos en ticks.
+- [x] Cambiar un valor en `balance.json` altera el cálculo sin modificar código fuente.
+- [x] El árbol tecnológico permite desbloquear Cactus, Dinosaurios y Laberintos en cualquier orden, y bloquea Policultivo hasta completar Laberintos.
+
+> **Fase 3 completada (2026-11-23).** Decisiones para la fase siguiente:
+> - Claves nuevas en `balance.json` que la plantilla del doc 03 no tenía: `ticks.powerCostPerDroneTick`, `polyculture.companionRadius`, `maze.substancePerSide`, `maze.goldPerSide` y `dinosaur.bonePerSquare`, más las entidades nuevas (`plantable: false` en las que no se siembran). Las pruebas cambian cada clave en una copia del balance y comprueban que el resultado cambia.
+> - **Calabazas:** la muerte se tira con el PRNG al madurar. Al madurar una calabaza se busca el mayor cuadrado de calabazas maduras que la contiene (programación dinámica O(ancho·alto)) y se fusiona; cosechar cualquier casilla de la megacalabaza la cosecha entera. `Dead_Pumpkin` desaparece con `harvest()` (sin dar nada), `plant()` o `till()`.
+> - **Girasoles:** la bonificación cuenta todos los girasoles de la granja y se da al cosechar el de más pétalos (los empates cuentan como máximo); la penalización por cosechar otro dura una sola cosecha y se guarda con la partida.
+> - **`Items.Power`:** mientras quede energía, cada dron activo gasta `powerCostPerDroneTick` (0.0025) por tick del mundo y trabaja `powerSpeedMultiplier` ticks por cada uno (las esperas bajan de 2 en 2, doc 02); el crecimiento de las plantas no se acelera. Las animaciones de las acciones se acortan en la misma proporción y el icono de energía del HUD brilla.
+> - **Cactus:** el orden solo compara con vecinos cactus y sin envoltura. La cadena empieza solo desde un cactus ordenado (uno desordenado se cosecha solo y rinde 1) y no incluye cactus inmaduros. `swap()` cuesta 200 ticks (1 si falla), funciona con casillas vacías, no cruza bordes ni se usa en el laberinto o el modo Dinosaurio, y requiere el nodo Cactus.
+> - **Laberintos:** ocupan toda la granja y piden `n ≥ substancePerSide · lado` (por defecto `n ≥ get_world_size()`). Cada casilla es un `Hedge` y los muros van en `mazeWalls` (laberinto perfecto por DFS con el PRNG); `move()` y `can_move()` los respetan y los bordes no envuelven. El tesoro da `lado · goldPerSide · (reciclados + 1) · valor del nivel de Mazes` (×1/×2/×3) y al cosecharlo la granja queda libre y vuelve el pasto. Al reciclar, el cofre reaparece a los `relocateTicks` en otra casilla (no bajo el dron) y `measure()` da `None` mientras tanto; el logro `Recycling` llega al alcanzar `maxRecycleCount`. Usar `Weird_Substance` sin Laberintos detiene el script con `UnlockError` (antes devolvía `False`).
+> - **Policultivo:** `Grass`, `Bush`, `Tree` y `Carrot` piden un compañero de otra de esas especies a distancia Manhattan 1..`companionRadius` al nacer, solo con el nodo desbloqueado; el multiplicador sube lineal de `baseMultiplier` (nivel 1) a `maxMultiplier` (nivel 5): ×5, ×7.5, ×10, ×12.5, ×15. `get_companion()` devuelve `None` si la planta no pide nada. Policultivo cuesta oro y calabazas para no depender de la rama Cactus.
+> - **Modo Dinosaurio:** equipar `Hats.Dinosaur_Hat` (requiere Dinosaurios) vacía la granja (conserva suelo y humedad) y cierra un laberinto activo; aparece una manzana en una casilla libre y `measure()` da su posición. La cola ocupa las últimas posiciones de la cabeza y bloquea el paso (también su último segmento); no hay envoltura y `plant()` no funciona. Al quedar atrapado o quitarse el sombrero, la cola se cosecha: `Bone = L² · bonePerSquare`; si quedó atrapado, el dron vuelve a su gorra. La lectura de «tipo» de `measure()` del doc 02 no aplica a la versión Snake: devuelve la manzana.
+> - Guardado versión 3 (laberinto, modo Dinosaurio, penalización de girasoles y metadatos de casilla); los guardados de las Fases 1 y 2 siguen cargando. El snapshot añade los arreglos planos `meta`, `walls`, `mega`, `compEntity`, `compX`, `compY`, el bit 2 de `flags` (cactus mal ordenado) y `powered`.
+> - Renderizador: modelos low-poly de las entidades nuevas con los colores de los docs 05/06; el girasol muestra su número real de pétalos y el tooltip de la casilla, pétalos, tamaño y orden del cactus, megacalabaza y compañero.
+> - Pedido del usuario (2026-11-23): el dron siempre está volando y sus hélices giran también en pausa o detenido (en lugar de «detenidas en pausa» de los docs 06 y 08). La pausa solo congela la acción del script; por la regla No-Idle, el tiempo simulado sigue sin avanzar mientras está en pausa.
+> - Durante esta fase llegó la dirección de arte final (docs 05–08) y se aplicó a pedido del usuario; ver la nota siguiente.
+
+> **Migración al arte final (2026-11-23, docs 05–08).**
+> - No había arte fuente, así que los PNG de `assets-src/sprites/` se generan con `scripts/generate-sprites.mjs` (`npm run sprites`): modelos de `scripts/sprites/` horneados en isometría 2:1 (casilla 128 × 64, cámara a 30°) con la luz cálida desde arriba a la izquierda, texturas de ruido (óxido, grano, moteado orgánico), oclusión de contacto, sombra proyectada y contorno oscuro suave; se rasterizan con `sharp`. `scripts/build-atlas.mjs` (`npm run atlas`) es el del doc 06 con dos añadidos: copia los anclajes de `assets-src/sprites/anchors.json` a cada frame y declara `meta.scale = 2`, porque los PNG salen al doble (opción «Retina 2×» del doc 06). Con arte final basta reemplazar los PNG con el mismo nombre y volver a empaquetar.
+> - Sprites añadidos al catálogo del doc 06: `tile_base` (rejilla que asoma en las juntas), `platform_edge_s/w` y `platform_corner` (bordes de la plataforma), `dino_head_back` y `dino_tail_front` (rumbos de espaldas y cola hacia el espectador), `cactus_*_neutral` (para que `tint = 0x8B6B4A` dé exactamente la paleta «Cactus mal ordenado»), `fx_shadow`, `fx_leaf`, `fx_splinter` e íconos `item_*` de 64 × 64 para el HUD.
+> - Los segmentos de la cola y las barricadas se diseñan a lo largo de un eje y el renderizador los refleja para el otro (en 2:1 el espejo horizontal intercambia x e y). La cabeza de dinosaurio sustituye al dron y tiene cuatro rumbos (dos sprites y sus reflejos).
+> - `src/renderer/iso/IsoStage.ts` sustituye al proyector low-poly, que queda como respaldo si el atlas no carga. Capas del doc 05: fondo con motas, plataforma cacheada (`cacheAsTexture`, se reconstruye al labrar o expandir), humedad, sombras, entidades por profundidad `−(x + y)`, drones y mascota, y dos `ParticleContainer` (normal y aditivo) con pool de 150 partículas y Auto-LOD (`getLodLevel` del doc 08). La capa de humedad va aparte de la cacheada para animar su transición sin reconstruir la plataforma.
+> - Para la cola, el snapshot añade `dino` (orden de los segmentos). El audio y el `SoundManager` con limitador del doc 08 siguen en la Fase 4.
+> - Interfaz según el doc 07: fondo `#2A3D45`, ventanas de chapa remachada, botones metálicos de 38 px, tema de editor «Terminal Industrial Ámbar» por defecto (las preferencias antiguas pasan a él una vez), árbol con bordes latón / cobre / hierro, tooltip `#1E1916` con borde `#8C5327` y franja de error `#3B1A14`. Los íconos del HUD y del árbol se recortan del mismo atlas.
+
+---
+
+## Fase 4: Megafarm (32 Drones), UX Avanzada y Marcadores
+**Objetivo:** Escala completa (`32x32` con 32 drones paralelos), pulido de UX, logros y marcadores competitivos.
+
+### Tareas Técnicas
+1. Implementar `src/vm/scheduler.ts` para 1 a 32 drones en Round-Robin, `spawn_drone` (clonación profunda de argumentos), `wait_for`, `has_finished`, `num_drones` y `max_drones`.
+2. Habilitar expansión del mapa hasta `32x32` y optimización del `RenderSnapshot` (arreglos planos / *dirty tiles*) y *pooling* de sprites en PixiJS.
+3. Implementar bus de eventos para los 59 logros base (`Swarm`, `Recycling`, `Mud Farm`, etc.), sombreros cosméticos (`Top_Hat`) y 16 marcadores locales (`Fastest_Reset`).
+4. Pulido UX: paneles redimensionables (*splitter*), tema claro/oscuro, atajos de teclado, barra auxiliar de símbolos para móvil/tablet y audio con *throttling* (Howler.js).
+
+### Criterios de Aceptación (DoD Fase 4)
+- [x] 32 drones operando simultáneamente en un mapa `32x32` mantienen **60 FPS estables** en el hilo principal.
+- [x] Ningún dron puede mutar variables globales o listas pasadas por argumento de otro dron (verificado por prueba unitaria de aislamiento).
+- [x] Prueba de estrés de 100,000 ticks sin fugas de memoria en `callStack` ni en la consola de UI.
+
+> **Fase 4 completada (2026-11-24).** Decisiones y notas:
+> - **Megafarm (`src/vm/fleet.ts`):** `spawn_drone(fn, *args)` exige el nodo Megagranja (5 niveles: 2, 4, 8, 16 y 32 drones), valida los argumentos en el padre, reserva el hueco al llamarla y crea al hijo al terminar sus 200 ticks, en la casilla del padre. En el límite devuelve `None` y cuesta 1 tick. Los hijos creados durante un tick empiezan en el siguiente; los que terminan se retiran del planificador y del mundo (su resultado queda guardado, hasta 4096) y los ids vuelven a empezar en cada ejecución. El error de un hijo no detiene al padre (`wait_for` da `None`) y, por la regla No-Idle, el mundo sigue mientras quede algún dron activo aunque el principal haya terminado.
+> - **Aislamiento:** la función, su ámbito global, sus cierres, los módulos importados y los argumentos se copian en profundidad con una sola memoria por llamada (`Isolator`): dentro del hijo se conservan identidades y ciclos (si un argumento es una global, siguen siendo el mismo objeto), pero nada se comparte con el padre. Números, cadenas, enums, builtins y referencias a drones se comparten porque son inmutables. `wait_for` entrega una copia del valor devuelto.
+> - **Esperas bloqueantes:** `wait_for` y `do_a_flip` dejan al dron en `WAITING`. `do_a_flip` usa `fixedWaitMs = 1000`, que el planificador descuenta una vez por tick del mundo a razón de `1000 / (400 · Velocidad)` ms: dura 1 s real a la velocidad desbloqueada (400 ticks sin mejoras), sin acelerarse con `Items.Power` ni con el ritmo del jugador. La animación del doc 08 siempre dura 1000 ms reales.
+> - **Otras funciones del doc 02:** `set_execution_speed(v)` limita el multiplicador de Velocidad durante la ejecución (≤ 0 lo restaura; cada ejecución empieza sin tope); `clear()` deja toda la granja en `Grassland` con pasto y sin agua, cierra laberinto y modo Dinosaurio y devuelve a (0, 0) solo al dron que lo llamó; `pet_the_piggy()` es alias de `pet_the_dog()`. Costos nuevos en `builtinCosts`.
+> - **Logros:** los 59 son datos (`achievements.json`): condiciones sobre recursos obtenidos, estadísticas de por vida (`WorldStats`, guardadas con la partida) o niveles del árbol, evaluadas por el bus cuando cambian las estadísticas (al final de cada tick y al desbloquear). `Mud Farm` y `Recycling` los concede el motor en el instante en que ocurren. Siete sombreros se ganan con logros (Gold_Crown, Pumpkin_Helmet, Cactus_Pot, Wizard_Hat, Viking_Helmet con `Swarm`, Propeller_Beanie, Party_Hat) y `change_hat` los rechaza con `UnlockError` nombrando el logro; `Top_Hat` es un nodo del árbol (la meta final).
+> - **Marcadores:** los 16 son datos (`leaderboards.json`: semilla, tamaño, tecnologías, recursos iniciales y meta). Un intento (nodo Marcadores; `leaderboard_run()` o el botón **▶** de la ventana de registros) congela la partida principal y ejecuta el archivo en una granja aislada que no concede logros, midiendo ticks simulados hasta reunir la meta (recursos obtenidos). Termina sin marca si el script acaba antes, con `STOP_ALL` o a los 50 000 000 ticks. `leaderboard_run()` arranca el intento al terminar el tick y detiene el script que lo llamó. Durante el intento no se puede desbloquear tecnología y el autoguardado guarda siempre la partida principal. `Fastest_Reset` registra los ticks de la partida principal al desbloquear `Top_Hat` (una vez por partida). Las marcas (menos ticks gana, archivo e intentos) van al almacén `leaderboards` de IndexedDB y no se borran al reiniciar la partida, porque `Fastest_Reset` mide reinicios.
+> - **Persistencia y protocolo:** guardado versión 4 con `stats` (las versiones 1–3 siguen cargando; los drones hijos no se guardan). Mensajes nuevos `START_LEADERBOARD` y `LEADERBOARD_RESULT`; el snapshot añade `leaderboard` (intento en curso) y envía siempre los desbloqueos y logros de la partida principal.
+> - **Renderizador:** cada snapshot trae arreglos nuevos, así que `IsoStage` compara con los del anterior y solo sincroniza las casillas que cambiaron o que tocó un evento (*dirty tiles*); los centros de casilla se calculan una vez. `SpritePool` reutiliza cultivos, fantasmas de cosecha, destellos, iconos voladores, humedad y cola, y las vistas de dron se reutilizan al crear y retirar hijos. Animaciones nuevas: pirueta y aparición de drones. Con más de 16 drones activos rige el LOD `LOW` del doc 08.
+> - **UX:** ventana de registros (trofeo o `L`), banda del intento en curso y avisos de marca; atajos `T`, `L` y `Esc`; barra de símbolos táctil (puntero *coarse*) que escribe en el editor sin quitarle el foco. Los «paneles redimensionables» son las ventanas flotantes de la Fase 1 y el tema claro/oscuro, los temas del editor (Ámbar, Oscuro, Claro). El audio usa Web Audio con efectos sintetizados en lugar de Howler.js (sin dependencias ni archivos de audio), con el limitador del doc 08: 45–60 ms por categoría y 8 voces como máximo; el volumen está en Ajustes.
+> - **Medido:** con 32 drones en 32×32, Chromium sin interfaz dibujó 90 FPS sin tope de vsync (peor fotograma 11 ms). El intento del marcador `Hay` (32 drones, ritmo ×256) avanzó unos 105 000 ticks por segundo en el Worker. La prueba de estrés recorre 100 000 ticks con 32 drones (hijos que nacen y terminan sin parar) y comprueba pila de llamadas, planificador, cuerpos, resultados, eventos y el búfer de 1000 líneas.
+> - **Pendiente del doc 02:** el bloqueo progresivo de sintaxis (sigue esperando a que el árbol tenga los nodos `Loops`, `Functions`…, ver la nota de la Fase 2).
+
+> **Después de la Fase 4 (2026-11-25): `simulate()`, `set_world_size()` y granja independiente.** Decisiones:
+> - **`set_world_size(lado)`** (200 ticks, sin desbloqueo): al terminar la espera reduce la granja a `lado × lado` (mínimo `world.minSizeLimit` = 3 en `balance.json`, nunca más que la desbloqueada; en una granja rectangular, `min(lado, ancho) × min(lado, alto)`), la limpia como `clear()` y devuelve **todos** los drones a (0, 0). `lado ≤ 0`, o igual o mayor que la granja completa, quita el límite (como `set_execution_speed`). Es temporal: dura hasta que termina la ejecución (al acabar, al detener o con otro Run), y entonces la granja recupera su tamaño; lo que reaparece vuelve con pasto. Si `Expand` sube durante la ejecución, el límite se respeta. Un guardado hecho a mitad de ejecución guarda también el tamaño completo (`baseWidth`/`baseHeight`, opcionales en la versión 4) y se recarga completo. En un intento de marcador da `ValueError` (el tamaño lo fija el marcador); en una simulación sí funciona.
+> - **`simulate(archivo, sim_unlocks, sim_items, sim_globals, semilla, ritmo)`** (200 ticks + la simulación): al terminar la espera el dron queda en `WAITING` y el host aparca la ejecución principal tal cual (mundo, planificador y flota de drones, ritmo y tope de velocidad): **la granja principal no avanza** mientras tanto. Corre el archivo en una granja nueva con la semilla, los desbloqueos, los recursos y las variables globales pedidos, sin logros ni recursos para la partida, y al terminar todos sus drones devuelve la partida tal como estaba y entrega al dron los **segundos simulados** hasta que paró el último dron simulado (ticks / 400, como `get_time()`). Argumentos: el archivo con o sin `.py`; `sim_unlocks` = `None` (tus niveles), el enum `Unlocks` (todo al máximo), una secuencia de desbloqueos (cada uno al máximo) o `{Unlocks.X: nivel}`; `sim_items` = `{Items.X: cantidad}`; `sim_globals` = `{"nombre": valor}` copiado en profundidad (la simulación no toca tus listas); semilla entera (0 por defecto); ritmo > 0 (1 por defecto: solo cambia lo que tardas en verlo). Si el script simulado falla, su error se marca en su ventana y el que llamó se detiene con `RuntimeError: simulate(): archivo, línea N: …`. Detener corta la simulación y la ejecución que la pidió. Varias llamadas a la vez (Megafarm) van en cola, una simulación cada vez. No se puede anidar ni usar `leaderboard_run()` dentro, y no está disponible en un intento de marcador. Mientras corre, el snapshot trae `simulation` (archivo, semilla, ritmo, tiempo) y una banda inferior permite detenerla; no se puede desbloquear tecnología.
+> - **Cada ejecución empieza en (0, 0):** al pulsar ▶ (o ▷) el dron principal vuelve a la casilla (0, 0), salvo si lleva el dinosaurio, que conserva su casilla porque su cola sigue en la granja. Antes conservaba la posición en la que acabó el script anterior.
+> - **Granja, dron y perro independientes (`IsoStage` + `src/renderer/iso/flight.ts`):** la escena se separa en `field` (isla, cultivos y sus efectos) y `sky` (drones, perro, sus chispas y los textos de `print`). Arrastrar mueve **solo la granja**; el zoom sigue siendo de la cámara. Un dron sin script flota donde quedó aunque muevas la granja; al ejecutar, despega desde ahí y vuela hasta su casilla (la (0, 0) al empezar) con un resorte crítico (ω = 8 rad/s), y mientras su script corre sigue su casilla exacta: si arrastras la granja se queda atrás un instante y la alcanza. Los saltos que no son *wrap-around* (`clear()`, `set_world_size()`, el paso a una simulación o a un intento) también se hacen volando; el *wrap-around* conserva el fundido de 60 ms del doc 08. El dinosaurio camina pegado a la granja. El perro patrulla su propia zona (al empezar, alrededor de la isla) y no sigue a la granja; con `pet_the_dog()` vuela hasta el dron que lo llamó, esté donde esté. El dron y el perro se pueden agarrar con el ratón: el dron libre se queda donde lo sueltas (si trabaja, vuelve a su casilla) y el perro sigue patrullando desde ahí. Doble clic recentra: la granja vuelve a su sitio, el perro a la isla y los drones libres sobre su casilla. Las sombras solo caen sobre la isla. Las partículas se reparten el tope de 150: 100 en la granja y 50 en el cielo.

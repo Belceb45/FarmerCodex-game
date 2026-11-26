@@ -1,0 +1,360 @@
+{
+  "maxTicks": 50000000,
+  "boards": [
+    {
+      "id": "Hay",
+      "name": "Heno",
+      "description": "Junta heno con todos los drones.",
+      "multi": true,
+      "size": [
+        32,
+        32
+      ],
+      "seed": 101,
+      "unlocks": {
+        "Plant": 1,
+        "Megafarm": 5
+      },
+      "items": {},
+      "goal": {
+        "item": "Hay",
+        "amount": 100000
+      }
+    },
+    {
+      "id": "Hay_Single",
+      "name": "Heno (un dron)",
+      "description": "Junta heno con un solo dron.",
+      "multi": false,
+      "size": [
+        8,
+        8
+      ],
+      "seed": 102,
+      "unlocks": {
+        "Plant": 1
+      },
+      "items": {},
+      "goal": {
+        "item": "Hay",
+        "amount": 5000
+      }
+    },
+    {
+      "id": "Wood",
+      "name": "Madera",
+      "description": "Junta madera con todos los drones.",
+      "multi": true,
+      "size": [
+        32,
+        32
+      ],
+      "seed": 103,
+      "unlocks": {
+        "Plant": 1,
+        "Trees": 1,
+        "Megafarm": 5
+      },
+      "items": {},
+      "goal": {
+        "item": "Wood",
+        "amount": 200000
+      }
+    },
+    {
+      "id": "Wood_Single",
+      "name": "Madera (un dron)",
+      "description": "Junta madera con un solo dron.",
+      "multi": false,
+      "size": [
+        8,
+        8
+      ],
+      "seed": 104,
+      "unlocks": {
+        "Plant": 1,
+        "Trees": 1
+      },
+      "items": {},
+      "goal": {
+        "item": "Wood",
+        "amount": 10000
+      }
+    },
+    {
+      "id": "Carrots",
+      "name": "Zanahorias",
+      "description": "Junta zanahorias con todos los drones.",
+      "multi": true,
+      "size": [
+        32,
+        32
+      ],
+      "seed": 105,
+      "unlocks": {
+        "Plant": 1,
+        "Trees": 1,
+        "Carrots": 1,
+        "Watering": 4,
+        "Fertilizer": 3,
+        "Megafarm": 5
+      },
+      "items": {
+        "Hay": 1000000000.0,
+        "Wood": 1000000000.0
+      },
+      "goal": {
+        "item": "Carrot",
+        "amount": 50000
+      }
+    },
+    {
+      "id": "Carrots_Single",
+      "name": "Zanahorias (un dron)",
+      "description": "Junta zanahorias con un solo dron.",
+      "multi": false,
+      "size": [
+        8,
+        8
+      ],
+      "seed": 106,
+      "unlocks": {
+        "Plant": 1,
+        "Trees": 1,
+        "Carrots": 1,
+        "Watering": 4,
+        "Fertilizer": 3
+      },
+      "items": {
+        "Hay": 1000000000.0,
+        "Wood": 1000000000.0
+      },
+      "goal": {
+        "item": "Carrot",
+        "amount": 2000
+      }
+    },
+    {
+      "id": "Pumpkins",
+      "name": "Calabazas",
+      "description": "Junta calabazas con todos los drones.",
+      "multi": true,
+      "size": [
+        32,
+        32
+      ],
+      "seed": 107,
+      "unlocks": {
+        "Plant": 1,
+        "Carrots": 1,
+        "Pumpkins": 1,
+        "Watering": 4,
+        "Fertilizer": 3,
+        "Megafarm": 5
+      },
+      "items": {
+        "Carrot": 1000000000.0
+      },
+      "goal": {
+        "item": "Pumpkin",
+        "amount": 100000
+      }
+    },
+    {
+      "id": "Pumpkins_Single",
+      "name": "Calabazas (un dron)",
+      "description": "Junta calabazas con un solo dron.",
+      "multi": false,
+      "size": [
+        8,
+        8
+      ],
+      "seed": 108,
+      "unlocks": {
+        "Plant": 1,
+        "Carrots": 1,
+        "Pumpkins": 1,
+        "Watering": 4,
+        "Fertilizer": 3
+      },
+      "items": {
+        "Carrot": 1000000000.0
+      },
+      "goal": {
+        "item": "Pumpkin",
+        "amount": 5000
+      }
+    },
+    {
+      "id": "Sunflowers",
+      "name": "Girasoles",
+      "description": "Junta energía con todos los drones.",
+      "multi": true,
+      "size": [
+        32,
+        32
+      ],
+      "seed": 109,
+      "unlocks": {
+        "Plant": 1,
+        "Carrots": 1,
+        "Sunflowers": 1,
+        "Watering": 4,
+        "Fertilizer": 3,
+        "Megafarm": 5
+      },
+      "items": {
+        "Carrot": 1000000000.0
+      },
+      "goal": {
+        "item": "Power",
+        "amount": 20000
+      }
+    },
+    {
+      "id": "Sunflowers_Single",
+      "name": "Girasoles (un dron)",
+      "description": "Junta energía con un solo dron.",
+      "multi": false,
+      "size": [
+        8,
+        8
+      ],
+      "seed": 110,
+      "unlocks": {
+        "Plant": 1,
+        "Carrots": 1,
+        "Sunflowers": 1,
+        "Watering": 4,
+        "Fertilizer": 3
+      },
+      "items": {
+        "Carrot": 1000000000.0
+      },
+      "goal": {
+        "item": "Power",
+        "amount": 1000
+      }
+    },
+    {
+      "id": "Cactus",
+      "name": "Cactus",
+      "description": "Junta cactus con todos los drones.",
+      "multi": true,
+      "size": [
+        32,
+        32
+      ],
+      "seed": 111,
+      "unlocks": {
+        "Plant": 1,
+        "Carrots": 1,
+        "Pumpkins": 1,
+        "Cactus": 1,
+        "Megafarm": 5
+      },
+      "items": {
+        "Pumpkin": 1000000000.0
+      },
+      "goal": {
+        "item": "Cactus",
+        "amount": 200000
+      }
+    },
+    {
+      "id": "Cactus_Single",
+      "name": "Cactus (un dron)",
+      "description": "Junta cactus con un solo dron.",
+      "multi": false,
+      "size": [
+        8,
+        8
+      ],
+      "seed": 112,
+      "unlocks": {
+        "Plant": 1,
+        "Carrots": 1,
+        "Pumpkins": 1,
+        "Cactus": 1
+      },
+      "items": {
+        "Pumpkin": 1000000000.0
+      },
+      "goal": {
+        "item": "Cactus",
+        "amount": 10000
+      }
+    },
+    {
+      "id": "Maze",
+      "name": "Laberinto",
+      "description": "Junta oro de los tesoros con todos los drones.",
+      "multi": true,
+      "size": [
+        32,
+        32
+      ],
+      "seed": 113,
+      "unlocks": {
+        "Plant": 1,
+        "Mazes": 3,
+        "Megafarm": 5
+      },
+      "items": {
+        "Weird_Substance": 1000000000.0
+      },
+      "goal": {
+        "item": "Gold",
+        "amount": 100000
+      }
+    },
+    {
+      "id": "Maze_Single",
+      "name": "Laberinto (un dron)",
+      "description": "Junta oro de los tesoros con un solo dron.",
+      "multi": false,
+      "size": [
+        8,
+        8
+      ],
+      "seed": 114,
+      "unlocks": {
+        "Plant": 1,
+        "Mazes": 3
+      },
+      "items": {
+        "Weird_Substance": 1000000000.0
+      },
+      "goal": {
+        "item": "Gold",
+        "amount": 5000
+      }
+    },
+    {
+      "id": "Dinosaur",
+      "name": "Dinosaurio",
+      "description": "Junta huesos con la cola del dinosaurio.",
+      "multi": false,
+      "size": [
+        12,
+        12
+      ],
+      "seed": 115,
+      "unlocks": {
+        "Plant": 1,
+        "Dinosaurs": 1
+      },
+      "items": {},
+      "goal": {
+        "item": "Bone",
+        "amount": 2000
+      }
+    },
+    {
+      "id": "Fastest_Reset",
+      "name": "Reinicio más rápido",
+      "description": "Desde una partida nueva hasta conseguir el sombrero de copa (Top_Hat), en ticks simulados de la partida principal.",
+      "special": "reset"
+    }
+  ]
+}

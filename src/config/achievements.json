@@ -1,0 +1,553 @@
+{
+  "achievements": [
+    {
+      "id": "First Harvest",
+      "name": "Primera cosecha",
+      "description": "Cosecha cualquier planta madura.",
+      "condition": {
+        "stat": "harvests",
+        "min": 1
+      }
+    },
+    {
+      "id": "Haystack",
+      "name": "Pajar",
+      "description": "Junta 1 000 de heno a lo largo de la partida.",
+      "condition": {
+        "item": "Hay",
+        "min": 1000
+      }
+    },
+    {
+      "id": "Sea of Straw",
+      "name": "Mar de paja",
+      "description": "Junta 1 000 000 de heno.",
+      "condition": {
+        "item": "Hay",
+        "min": 1000000
+      }
+    },
+    {
+      "id": "Lumberjack",
+      "name": "Leñador",
+      "description": "Junta 1 000 de madera.",
+      "condition": {
+        "item": "Wood",
+        "min": 1000
+      }
+    },
+    {
+      "id": "Sawmill",
+      "name": "Aserradero",
+      "description": "Junta 1 000 000 de madera.",
+      "condition": {
+        "item": "Wood",
+        "min": 1000000
+      }
+    },
+    {
+      "id": "Root Cellar",
+      "name": "Bodega de raíces",
+      "description": "Junta 1 000 zanahorias.",
+      "condition": {
+        "item": "Carrot",
+        "min": 1000
+      }
+    },
+    {
+      "id": "Carrot Empire",
+      "name": "Imperio de la zanahoria",
+      "description": "Junta 1 000 000 de zanahorias.",
+      "condition": {
+        "item": "Carrot",
+        "min": 1000000
+      }
+    },
+    {
+      "id": "Pumpkin Patch",
+      "name": "Calabazar",
+      "description": "Junta 1 000 calabazas.",
+      "condition": {
+        "item": "Pumpkin",
+        "min": 1000
+      }
+    },
+    {
+      "id": "Gourd Mountain",
+      "name": "Montaña de calabazas",
+      "description": "Junta 1 000 000 de calabazas.",
+      "condition": {
+        "item": "Pumpkin",
+        "min": 1000000
+      }
+    },
+    {
+      "id": "Prickly",
+      "name": "Espinoso",
+      "description": "Junta 1 000 cactus.",
+      "condition": {
+        "item": "Cactus",
+        "min": 1000
+      }
+    },
+    {
+      "id": "Desert Kingdom",
+      "name": "Reino del desierto",
+      "description": "Junta 1 000 000 de cactus.",
+      "condition": {
+        "item": "Cactus",
+        "min": 1000000
+      }
+    },
+    {
+      "id": "Charged Up",
+      "name": "Cargado",
+      "description": "Junta 100 de energía cosechando girasoles.",
+      "condition": {
+        "item": "Power",
+        "min": 100
+      }
+    },
+    {
+      "id": "Power Plant",
+      "name": "Central eléctrica",
+      "description": "Junta 100 000 de energía.",
+      "condition": {
+        "item": "Power",
+        "min": 100000
+      }
+    },
+    {
+      "id": "Treasure Hunter",
+      "name": "Buscatesoros",
+      "description": "Junta 1 000 de oro.",
+      "condition": {
+        "item": "Gold",
+        "min": 1000
+      }
+    },
+    {
+      "id": "Fortune",
+      "name": "Fortuna",
+      "description": "Junta 1 000 000 de oro.",
+      "condition": {
+        "item": "Gold",
+        "min": 1000000
+      },
+      "reward": {
+        "hat": "Gold_Crown"
+      }
+    },
+    {
+      "id": "Paleontologist",
+      "name": "Paleontólogo",
+      "description": "Junta 1 000 huesos.",
+      "condition": {
+        "item": "Bone",
+        "min": 1000
+      }
+    },
+    {
+      "id": "Something Weird",
+      "name": "Algo raro",
+      "description": "Junta 100 de sustancia extraña.",
+      "condition": {
+        "item": "Weird_Substance",
+        "min": 100
+      }
+    },
+    {
+      "id": "First Furrow",
+      "name": "Primer surco",
+      "description": "Labra la tierra por primera vez.",
+      "condition": {
+        "stat": "tills",
+        "min": 1
+      }
+    },
+    {
+      "id": "Tireless Plough",
+      "name": "Arado incansable",
+      "description": "Labra 1 000 veces.",
+      "condition": {
+        "stat": "tills",
+        "min": 1000
+      }
+    },
+    {
+      "id": "Seeder",
+      "name": "Sembrador",
+      "description": "Siembra 1 000 veces.",
+      "condition": {
+        "stat": "plants",
+        "min": 1000
+      }
+    },
+    {
+      "id": "Nursery",
+      "name": "Vivero",
+      "description": "Siembra 100 000 veces.",
+      "condition": {
+        "stat": "plants",
+        "min": 100000
+      }
+    },
+    {
+      "id": "First Steps",
+      "name": "Primeros pasos",
+      "description": "Mueve drones 100 casillas.",
+      "condition": {
+        "stat": "moves",
+        "min": 100
+      }
+    },
+    {
+      "id": "Long Haul",
+      "name": "Kilometraje",
+      "description": "Mueve drones 1 000 000 de casillas.",
+      "condition": {
+        "stat": "moves",
+        "min": 1000000
+      }
+    },
+    {
+      "id": "Waterworks",
+      "name": "Regadío",
+      "description": "Riega 1 000 veces.",
+      "condition": {
+        "stat": "waters",
+        "min": 1000
+      }
+    },
+    {
+      "id": "Mud Farm",
+      "name": "Granja de barro",
+      "description": "Mantén toda la granja con humedad por encima de 0.5.",
+      "condition": {
+        "manual": true
+      }
+    },
+    {
+      "id": "Dubious Chemistry",
+      "name": "Química dudosa",
+      "description": "Usa fertilizante por primera vez.",
+      "condition": {
+        "stat": "fertilizes",
+        "min": 1
+      }
+    },
+    {
+      "id": "Tainted Crop",
+      "name": "Cosecha contaminada",
+      "description": "Cosecha una planta infectada.",
+      "condition": {
+        "stat": "infectedHarvests",
+        "min": 1
+      }
+    },
+    {
+      "id": "Swap Meet",
+      "name": "Trueque",
+      "description": "Intercambia 1 000 casillas con swap().",
+      "condition": {
+        "stat": "swaps",
+        "min": 1000
+      }
+    },
+    {
+      "id": "Research",
+      "name": "Investigación",
+      "description": "Desbloquea tu primera tecnología.",
+      "condition": {
+        "stat": "unlocks",
+        "min": 1
+      }
+    },
+    {
+      "id": "Full Platform",
+      "name": "Plataforma completa",
+      "description": "Expande la granja al máximo (32 × 32).",
+      "condition": {
+        "tech": "Expand",
+        "level": "max"
+      }
+    },
+    {
+      "id": "Overclocked",
+      "name": "Overclock",
+      "description": "Lleva Velocidad al nivel máximo.",
+      "condition": {
+        "tech": "Speed",
+        "level": "max"
+      }
+    },
+    {
+      "id": "Complete Tree",
+      "name": "Árbol completo",
+      "description": "Completa todas las tecnologías del árbol.",
+      "condition": {
+        "allTech": true
+      }
+    },
+    {
+      "id": "Top Hat",
+      "name": "Copa de chatarra",
+      "description": "Consigue el sombrero de copa: la meta final.",
+      "condition": {
+        "tech": "Top_Hat",
+        "level": 1
+      }
+    },
+    {
+      "id": "Rot",
+      "name": "Podredumbre",
+      "description": "Deja que una calabaza muera al madurar.",
+      "condition": {
+        "stat": "deadPumpkins",
+        "min": 1
+      }
+    },
+    {
+      "id": "Double Pumpkin",
+      "name": "Calabaza doble",
+      "description": "Forma una megacalabaza de 2 × 2.",
+      "condition": {
+        "stat": "maxMega",
+        "min": 2
+      }
+    },
+    {
+      "id": "Colossal Pumpkin",
+      "name": "Calabaza colosal",
+      "description": "Forma una megacalabaza de 6 × 6.",
+      "condition": {
+        "stat": "maxMega",
+        "min": 6
+      },
+      "reward": {
+        "hat": "Pumpkin_Helmet"
+      }
+    },
+    {
+      "id": "Titanic Pumpkin",
+      "name": "Calabaza titánica",
+      "description": "Forma una megacalabaza de 12 × 12.",
+      "condition": {
+        "stat": "maxMega",
+        "min": 12
+      }
+    },
+    {
+      "id": "Perfect Bloom",
+      "name": "Floración perfecta",
+      "description": "Consigue la bonificación de energía de los girasoles.",
+      "condition": {
+        "stat": "sunflowerBonuses",
+        "min": 1
+      }
+    },
+    {
+      "id": "Full Throttle",
+      "name": "A todo gas",
+      "description": "Acelera un dron con Items.Power.",
+      "condition": {
+        "stat": "poweredTicks",
+        "min": 1
+      }
+    },
+    {
+      "id": "Cactus Chain",
+      "name": "Cadena de cactus",
+      "description": "Cosecha 10 cactus ordenados de una vez.",
+      "condition": {
+        "stat": "maxCactusChain",
+        "min": 10
+      }
+    },
+    {
+      "id": "Perfect Sort",
+      "name": "Orden perfecto",
+      "description": "Cosecha 100 cactus ordenados de una vez.",
+      "condition": {
+        "stat": "maxCactusChain",
+        "min": 100
+      },
+      "reward": {
+        "hat": "Cactus_Pot"
+      }
+    },
+    {
+      "id": "Labyrinth",
+      "name": "Laberinto",
+      "description": "Crea un laberinto con sustancia extraña.",
+      "condition": {
+        "stat": "mazes",
+        "min": 1
+      }
+    },
+    {
+      "id": "Way Out",
+      "name": "Salida",
+      "description": "Encuentra y cosecha un tesoro.",
+      "condition": {
+        "stat": "treasures",
+        "min": 1
+      }
+    },
+    {
+      "id": "Explorer",
+      "name": "Explorador",
+      "description": "Cosecha 100 tesoros.",
+      "condition": {
+        "stat": "treasures",
+        "min": 100
+      }
+    },
+    {
+      "id": "Recycling",
+      "name": "Reciclaje",
+      "description": "Recicla un laberinto hasta el máximo de veces.",
+      "condition": {
+        "manual": true
+      },
+      "reward": {
+        "hat": "Wizard_Hat"
+      }
+    },
+    {
+      "id": "Good Company",
+      "name": "Buena compañía",
+      "description": "Cosecha una planta junto a su compañera (policultivo).",
+      "condition": {
+        "stat": "companionHarvests",
+        "min": 1
+      }
+    },
+    {
+      "id": "Prehistoric",
+      "name": "Prehistoria",
+      "description": "Ponte el sombrero de dinosaurio.",
+      "condition": {
+        "stat": "dinoRuns",
+        "min": 1
+      }
+    },
+    {
+      "id": "Long Tail",
+      "name": "Cola larga",
+      "description": "Consigue una cola de 10 segmentos.",
+      "condition": {
+        "stat": "maxTail",
+        "min": 10
+      }
+    },
+    {
+      "id": "Endless Tail",
+      "name": "Cola interminable",
+      "description": "Consigue una cola de 100 segmentos.",
+      "condition": {
+        "stat": "maxTail",
+        "min": 100
+      }
+    },
+    {
+      "id": "Cornered",
+      "name": "Acorralado",
+      "description": "Queda atrapado por tu propia cola.",
+      "condition": {
+        "stat": "dinoTrapped",
+        "min": 1
+      }
+    },
+    {
+      "id": "Copilot",
+      "name": "Copiloto",
+      "description": "Crea un dron con spawn_drone().",
+      "condition": {
+        "stat": "spawns",
+        "min": 1
+      }
+    },
+    {
+      "id": "Squadron",
+      "name": "Escuadrilla",
+      "description": "Ten 8 drones trabajando a la vez.",
+      "condition": {
+        "stat": "maxActiveDrones",
+        "min": 8
+      }
+    },
+    {
+      "id": "Swarm",
+      "name": "Enjambre",
+      "description": "Ten 32 drones trabajando a la vez.",
+      "condition": {
+        "stat": "maxActiveDrones",
+        "min": 32
+      },
+      "reward": {
+        "hat": "Viking_Helmet"
+      }
+    },
+    {
+      "id": "Teamwork",
+      "name": "Trabajo en equipo",
+      "description": "Recibe un valor de otro dron con wait_for().",
+      "condition": {
+        "stat": "waitedValues",
+        "min": 1
+      }
+    },
+    {
+      "id": "Good Dog",
+      "name": "Buen perro",
+      "description": "Acaricia al perro.",
+      "condition": {
+        "stat": "pets",
+        "min": 1
+      }
+    },
+    {
+      "id": "Best Friends",
+      "name": "Mejores amigos",
+      "description": "Acaricia al perro 100 veces.",
+      "condition": {
+        "stat": "pets",
+        "min": 100
+      }
+    },
+    {
+      "id": "Barrel Roll",
+      "name": "Pirueta",
+      "description": "Haz una pirueta con do_a_flip().",
+      "condition": {
+        "stat": "flips",
+        "min": 1
+      },
+      "reward": {
+        "hat": "Propeller_Beanie"
+      }
+    },
+    {
+      "id": "Hat Collector",
+      "name": "Coleccionista",
+      "description": "Ponte 10 sombreros distintos.",
+      "condition": {
+        "stat": "hatsWorn",
+        "min": 10
+      }
+    },
+    {
+      "id": "Personal Best",
+      "name": "Récord personal",
+      "description": "Completa un intento de marcador.",
+      "condition": {
+        "stat": "leaderboardRuns",
+        "min": 1
+      },
+      "reward": {
+        "hat": "Party_Hat"
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "//": "Garantiza en compilación que el motor, la VM y el host de simulación no dependen del DOM (lib sin 'DOM').",
+  "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "skipLibCheck": true,
+    "types": []
+  },
+  "include": [
+    "src/config",
+    "src/engine",
+    "src/vm",
+    "src/worker/protocol.ts",
+    "src/worker/simulationHost.ts"
+  ]
+}

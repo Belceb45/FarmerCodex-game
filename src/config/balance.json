@@ -1,0 +1,291 @@
+{
+  "ticks": {
+    "physicalActionSuccess": 200,
+    "physicalActionFail": 1,
+    "baseTicksPerSecond": 400,
+    "powerSpeedMultiplier": 2.0,
+    "powerCostPerDroneTick": 0.0025
+  },
+  "operations": {
+    "arithmetic": 1,
+    "logic": 1,
+    "comparison": 1,
+    "subscript": 1,
+    "functionCall": 1,
+    "loopIteration": 1
+  },
+  "builtinCosts": {
+    "default": 1,
+    "method": 1,
+    "can_harvest": 1,
+    "get_pos_x": 1,
+    "get_pos_y": 1,
+    "get_world_size": 1,
+    "get_entity_type": 1,
+    "get_ground_type": 1,
+    "num_items": 1,
+    "len": 1,
+    "range": 1,
+    "abs": 1,
+    "random": 1,
+    "str": 1,
+    "int": 1,
+    "float": 1,
+    "bool": 1,
+    "list": 1,
+    "tuple": 1,
+    "set": 1,
+    "dict": 1,
+    "quick_print": 0,
+    "get_time": 0,
+    "get_tick_count": 0,
+    "print": 200,
+    "change_hat": 200,
+    "pet_the_dog": 200,
+    "get_water": 1,
+    "num_unlocked": 1,
+    "get_cost": 1,
+    "measure": 1,
+    "can_move": 1,
+    "get_companion": 1,
+    "spawn_drone": 200,
+    "wait_for": 1,
+    "has_finished": 1,
+    "num_drones": 1,
+    "max_drones": 1,
+    "do_a_flip": 0,
+    "pet_the_piggy": 200,
+    "set_execution_speed": 200,
+    "clear": 200,
+    "leaderboard_run": 200,
+    "set_world_size": 200,
+    "simulate": 200
+  },
+  "world": {
+    "minSize": 1,
+    "maxSize": 32,
+    "minSizeLimit": 3,
+    "startWithMatureGrass": true
+  },
+  "water": {
+    "evaporationIntervalSec": 0.1,
+    "evaporationChance": 0.1,
+    "evaporationAmount": 0.01,
+    "mudFarmThreshold": 0.5,
+    "amountPerUse": 0.25,
+    "growthBonusAtFull": 4.0,
+    "tankCapacityPerLevel": 10,
+    "refillPerSecPerLevel": 0.5
+  },
+  "fertilizer": {
+    "growthReductionSec": 2.0,
+    "infectedWeirdSubstanceRatio": 0.5,
+    "capacityPerLevel": 5,
+    "refillPerSecPerLevel": 0.1
+  },
+  "pumpkin": {
+    "deathRate": 0.2,
+    "maxCubicMergeSize": 6,
+    "formulaMode": "capped_cubic"
+  },
+  "sunflower": {
+    "minPetals": 7,
+    "maxPetals": 15,
+    "minCountForBonus": 10,
+    "powerMultiplier": 8.0,
+    "earlyHarvestResetToNormal": true
+  },
+  "cactus": {
+    "minSize": 0,
+    "maxSize": 9,
+    "growthDurationSec": 1.0,
+    "formulaMode": "quadratic"
+  },
+  "polyculture": {
+    "baseMultiplier": 5.0,
+    "maxMultiplier": 15.0,
+    "companionRadius": 3
+  },
+  "maze": {
+    "maxRecycleCount": 300,
+    "relocateTicks": 200,
+    "substancePerSide": 1,
+    "goldPerSide": 1
+  },
+  "dinosaur": {
+    "tailSegmentGrowthSec": 0.2,
+    "bonePerSquare": 1
+  },
+  "entities": {
+    "Grass": {
+      "growthSec": 0.5,
+      "growthVariance": 0.2,
+      "yield": {
+        "Hay": 1
+      },
+      "validGrounds": [
+        "Grassland",
+        "Soil"
+      ],
+      "autoSpawnOn": [
+        "Grassland"
+      ],
+      "regrowsAfterHarvest": true,
+      "plantCost": {}
+    },
+    "Bush": {
+      "growthSec": 4.0,
+      "growthVariance": 0.2,
+      "yield": {
+        "Wood": 1
+      },
+      "validGrounds": [
+        "Grassland",
+        "Soil"
+      ],
+      "autoSpawnOn": [],
+      "regrowsAfterHarvest": false,
+      "plantCost": {}
+    },
+    "Tree": {
+      "growthSec": 7.0,
+      "growthVariance": 0.2,
+      "yield": {
+        "Wood": 5
+      },
+      "validGrounds": [
+        "Grassland",
+        "Soil"
+      ],
+      "autoSpawnOn": [],
+      "regrowsAfterHarvest": false,
+      "plantCost": {},
+      "adjacentSlowdown": 1.0
+    },
+    "Carrot": {
+      "growthSec": 6.0,
+      "growthVariance": 0.2,
+      "yield": {
+        "Carrot": 1
+      },
+      "validGrounds": [
+        "Soil"
+      ],
+      "autoSpawnOn": [],
+      "regrowsAfterHarvest": false,
+      "plantCost": {
+        "Hay": 1,
+        "Wood": 1
+      }
+    },
+    "Pumpkin": {
+      "growthSec": 2.0,
+      "growthVariance": 0.2,
+      "yield": {
+        "Pumpkin": 1
+      },
+      "validGrounds": [
+        "Soil"
+      ],
+      "autoSpawnOn": [],
+      "regrowsAfterHarvest": false,
+      "plantCost": {
+        "Carrot": 1
+      }
+    },
+    "Dead_Pumpkin": {
+      "growthSec": 0,
+      "growthVariance": 0,
+      "yield": {},
+      "validGrounds": [
+        "Soil"
+      ],
+      "autoSpawnOn": [],
+      "regrowsAfterHarvest": false,
+      "plantCost": {},
+      "plantable": false
+    },
+    "Sunflower": {
+      "growthSec": 5.0,
+      "growthVariance": 0.2,
+      "yield": {
+        "Power": 1
+      },
+      "validGrounds": [
+        "Soil"
+      ],
+      "autoSpawnOn": [],
+      "regrowsAfterHarvest": false,
+      "plantCost": {
+        "Carrot": 1
+      }
+    },
+    "Cactus": {
+      "growthSec": 1.0,
+      "growthVariance": 0,
+      "yield": {
+        "Cactus": 1
+      },
+      "validGrounds": [
+        "Soil"
+      ],
+      "autoSpawnOn": [],
+      "regrowsAfterHarvest": false,
+      "plantCost": {
+        "Pumpkin": 1
+      }
+    },
+    "Hedge": {
+      "growthSec": 0,
+      "growthVariance": 0,
+      "yield": {},
+      "validGrounds": [
+        "Grassland",
+        "Soil"
+      ],
+      "autoSpawnOn": [],
+      "regrowsAfterHarvest": false,
+      "plantCost": {},
+      "plantable": false
+    },
+    "Treasure": {
+      "growthSec": 0,
+      "growthVariance": 0,
+      "yield": {},
+      "validGrounds": [
+        "Grassland",
+        "Soil"
+      ],
+      "autoSpawnOn": [],
+      "regrowsAfterHarvest": false,
+      "plantCost": {},
+      "plantable": false
+    },
+    "Apple": {
+      "growthSec": 0,
+      "growthVariance": 0,
+      "yield": {},
+      "validGrounds": [
+        "Grassland",
+        "Soil"
+      ],
+      "autoSpawnOn": [],
+      "regrowsAfterHarvest": false,
+      "plantCost": {},
+      "plantable": false
+    },
+    "Dinosaur": {
+      "growthSec": 0.2,
+      "growthVariance": 0,
+      "yield": {},
+      "validGrounds": [
+        "Grassland",
+        "Soil"
+      ],
+      "autoSpawnOn": [],
+      "regrowsAfterHarvest": false,
+      "plantCost": {},
+      "plantable": false
+    }
+  }
+}
